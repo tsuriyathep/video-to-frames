@@ -14,12 +14,12 @@ class Predictor(BasePredictor):
         temp_folder_path = tempfile.mkdtemp()
 
         if not extract_all_frames:
-            command = f"ffmpeg -i {video} -vf fps={fps} {temp_folder_path}/frames/out%03d.png"
+            command = f"ffmpeg -i {video} -vf fps={fps} {temp_folder_path}/out%03d.png"
         else:
-            command = f"ffmpeg -i {video} {temp_folder_path}/frames/out%03d.png"
+            command = f"ffmpeg -i {video} {temp_folder_path}/out%03d.png"
 
         subprocess.run(command, shell=True, check=True)
-        frame_files = sorted(os.listdir(f"{temp_folder_path}/frames"))
-        frame_paths = [Path(os.path.join(f"{temp_folder_path}/frames", frame_file)) for frame_file in frame_files]
+        frame_files = sorted(os.listdir(f"{temp_folder_path}"))
+        frame_paths = [Path(os.path.join(f"{temp_folder_path}", frame_file)) for frame_file in frame_files]
 
         return frame_paths
